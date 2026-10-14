@@ -19,6 +19,7 @@ h1{font-size:20px;margin:0 0 4px}
 .bar{max-width:1400px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 input,select,button{font:inherit;color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:6px 8px}
 input[type=search]{flex:1 1 240px;min-width:0}
+.search-controls{display:flex;gap:8px;flex:1 1 100%;min-width:0;grid-column:1 / -1}.search-controls input{min-width:0}.search-controls button{background:var(--accent);color:#fff;border-color:var(--accent);min-width:72px;white-space:nowrap}
 select{max-width:180px}
 button{cursor:pointer}
 .count{color:var(--muted);font-size:13px;margin-left:auto}
@@ -182,7 +183,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 }
 .secondary-filter>summary{cursor:pointer;color:var(--muted);font-size:13px}.secondary-filter[open]>summary{margin-bottom:12px}.detail-loading{color:var(--muted);font-size:13px}.detail-loading button{margin-left:8px}
 </style>
-<link rel="preload" as="script" href="assets/fe62ec964c217343/index.js"><link rel="preload" as="script" href="assets/fe62ec964c217343/evidence.js"></head>
+<link rel="preload" as="script" href="assets/b3971911ac53af95/index.js"><link rel="preload" as="script" href="assets/b3971911ac53af95/evidence.js"></head>
 <body>
 <header>
   <h1>胰腺癌临床试验库（通用版）</h1><p class="standalone-note">查找试验、了解研究方案与招募医院。</p>
@@ -196,7 +197,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 <div class="view-modes" id="view-modes"></div>
 <div class="bar" id="bar">
   <label class="search-label" for="q">查找临床试验</label>
-  <input type="search" id="q" aria-label="搜索试验" placeholder="搜索编号、题目、药物、医院、城市…">
+  <div class="search-controls"><input type="search" id="q" aria-label="搜索试验" placeholder="搜索编号、题目、药物、医院、城市…"><button id="search-submit" type="button">搜索</button></div>
   <span id="bar-end" hidden></span>
 </div>
 <div class="filter-sections">
@@ -213,7 +214,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     <div class="panel-head"><h2>治疗方式与具体靶点</h2><div class="panel-actions"><button class="text-button" id="clear-mechanism" hidden>清除机制</button><button class="text-button" id="expand-mechanisms" aria-expanded="false">展开全部</button></div></div>
     <input type="search" id="mechanism-search" aria-label="查找治疗方式或靶点" placeholder="查找方式或靶点，例如 ADC、PARP、TCR…">
     <div id="mechanism-chips"><h3 class="mechanism-group-title">治疗方式</h3><div class="mechanism-availability" id="mechanism-types-status" aria-live="polite"></div><div class="mechanism-grid" id="mechanism-types"></div><button class="text-button mechanism-more" id="more-mechanism-types" aria-controls="mechanism-types" aria-expanded="false"></button><h3 class="mechanism-group-title">具体靶点</h3><div class="mechanism-availability" id="mechanism-targets-status" aria-live="polite"></div><div class="mechanism-grid" id="mechanism-targets"></div><button class="text-button mechanism-more" id="more-mechanism-targets" aria-controls="mechanism-targets" aria-expanded="false"></button></div>
-    <div class="scope-tip">先选治疗方式，再选靶点；例如“ADC + CLDN18.2”。两项条件须对应同一种药物或干预。靶点不等于入组检测要求；表格逐药标注，多药可能属于不同队列或对照组。“机制待细分”保留尚未核实的原标签。</div>
+    <div class="scope-tip">先选治疗方式，再选靶点；例如“ADC + CLDN18.2”。“RAS／KRAS（多亚型）”包含泛RAS与泛KRAS，表格仍区分实际靶点。两项条件须对应同一种药物或干预。靶点不等于入组检测要求；表格逐药标注，多药可能属于不同队列或对照组。“机制待细分”保留尚未核实的原标签。</div>
   </section>
   <details class="advanced-wrap" id="advanced-filters">
     <summary id="advanced-summary">更多筛选：KRAS 入组条件</summary>
@@ -276,9 +277,9 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 <div class="pager"><button id="prev">上一页</button><span id="page"></span><button id="next">下一页</button></div></div>
 <div class="note"> 数据来自 ClinicalTrials.gov、国家药审中心药物临床试验登记平台、中国临床试验注册中心（ChiCTR）的公开登记；机制与治疗阶段标签按登记文字自动归类，可能有误，报名前以研究中心答复为准。胰腺癌证据按药物汇总，数字都有出处。客观缓解率是肿瘤明显缩小的人所占比例。疾病控制率是缩小或暂时没长大的人所占比例。中位总生存是一半人还活着的时间。中位无进展生存是一半人的肿瘤还没明显进展的时间。风险比小于 1，表示相对对照更少发生。有数字的在研药写自己的结果。对照是别的试验里一线化疗的成绩：四药 FOLFIRINOX、NALIRIFOX，以及吉西他滨加白蛋白紫杉醇。不能直接比高低。</div>
 <noscript><p class="loading-state">需要开启浏览器的 JavaScript 才能使用筛选。可点微信右上角菜单，在浏览器中打开。</p></noscript>
-<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/fe62ec964c217343/index.js","detailBase":"assets/fe62ec964c217343/","searchSrc":"assets/fe62ec964c217343/search.json","downloadSrc":"assets/fe62ec964c217343/catalog.csv","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","sponsor","related","_benefit","_registryRefs","mechanism","pdac_evidence"]}</script>
-<script src="assets/fe62ec964c217343/index.js" id="data-src"></script>
-<script src="assets/fe62ec964c217343/evidence.js"></script>
+<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/b3971911ac53af95/index.js","detailBase":"assets/b3971911ac53af95/","searchSrc":"assets/b3971911ac53af95/search.json","downloadSrc":"assets/b3971911ac53af95/catalog.csv","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","sponsor","related","_benefit","_registryRefs","mechanism","pdac_evidence"]}</script>
+<script src="assets/b3971911ac53af95/index.js" id="data-src"></script>
+<script src="assets/b3971911ac53af95/evidence.js"></script>
 <script type="application/json" id="data">[]</script>
 <script>
 (function(){
@@ -316,7 +317,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   function mechanismKey(type,target){return JSON.stringify([type||'',target||'']);}
   function mechanismMask(type,target){return mechanismIndex[mechanismKey(type,target)]||emptyMechanismMask;}
   rows.forEach(function(r,index){r._mechanisms.entries.forEach(function(e){
-    var pairs=[['',''],[e.type,'']];e.targets.forEach(function(t){pairs.push(['',t],[e.type,t]);});
+    var pairs=[['',''],[e.type,'']];e.targets.forEach(function(t){pairs.push(['',t],[e.type,t]);if(t==='KRAS（多亚型）')pairs.push(['','RAS（多亚型）'],[e.type,'RAS（多亚型）']);});
     pairs.forEach(function(pair){var key=mechanismKey(pair[0],pair[1]);if(!mechanismIndex[key])mechanismIndex[key]=new Uint8Array(rows.length);mechanismIndex[key][index]=1;});
   });});
   function evidenceAfter(k){return k==='id';}
@@ -337,7 +338,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     td.dataset.label='胰腺癌证据';
     var info=window.__drugEvidenceFor?window.__drugEvidenceFor(r):null;
     if(!info){td.classList.add('ev-miss');td.textContent='证据文件没载入';return td;}
-    if(!info.inScope||!info.prose)return td;
+    if(!info.inScope||!info.prose){td.classList.add('ev-miss');td.textContent='暂无胰腺癌专属证据摘要，请查看登记中的瘤种和研究队列。';return td;}
     var parts=info.parts&&info.parts.length?info.parts:[{k:"",v:info.prose}];
     function fillNums(node, text){
       var re=/(\d+(?:\.\d+)?(?:\s*对\s*\d+(?:\.\d+)?)?\s*(?:个月|%)|\d+\s*人)/g, last=0, m;
@@ -387,6 +388,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
       td.appendChild(block);
     });
     var links=[],seen={};
+    (info.sources||[]).forEach(function(it){if(/^https?:\/\//.test(it.url||'')){seen['reviewed|'+it.url]=true;links.push(it);}});
     (info.cards||[]).forEach(function(c){(c.items||[]).forEach(function(it){if(!/^https?:\/\//.test(it.url||''))return;var key=c.id+'|'+it.url;if(seen[key])return;seen[key]=true;links.push({label:c.name+' · '+(it.source||'资料来源'),url:it.url});});});
     if(links.length){var sources=document.createElement('details');sources.className='source-fold';var summary=document.createElement('summary');summary.textContent='资料来源（'+links.length+'）';sources.appendChild(summary);var note=document.createElement('p');note.textContent='按药物列出的研究资料，可能来自其他人群或用法；本项条件以编号链接的登记为准。';sources.appendChild(note);links.forEach(function(it){var a=document.createElement('a');a.href=it.url;a.target='_blank';a.rel='noopener';a.textContent=it.label;sources.appendChild(a);});td.appendChild(sources);}
     return td;
@@ -635,7 +637,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   rows.forEach(function(r){r._mechanisms.entries.forEach(function(e){if(typeNames.indexOf(e.type)<0)typeNames.push(e.type);e.targets.forEach(function(t){if(targetNames.indexOf(t)<0)targetNames.push(t);});});});
   var typeOrder=['化疗 / 化疗递送','免疫检查点单抗','放疗','ADC 抗体偶联药','RAS 直接抑制','RAS 蛋白降解','T 细胞衔接双抗','CAR-T 细胞','TCR-T 细胞','CAR-NK 细胞','NK 细胞','TIL 细胞','双靶点抗体','免疫融合蛋白','肿瘤疫苗','溶瘤病毒','DNA 修复抑制剂','信号通路抑制剂','抗血管生成','机制待细分'];
   var targetOrder=['RAS（多亚型）','KRAS G12D','KRAS G12C','KRAS G12V','CLDN18.2','间皮素','TROP2','HER2','EGFR','HER3','CCR8','组织因子 TF','B7-H3','c-Met','CEACAM5','Nectin-4','CDH17','FRα','PD-1','PD-L1','CTLA-4','CD3','VEGF','PRMT5','MAT2A','PARP','PARG','POLQ','MEK','ERK','靶点待核实','未单列靶点'];
-  var mechanismLabels={'间皮素':'MSLN（间皮素）'};
+  var mechanismLabels={'间皮素':'MSLN（间皮素）','RAS（多亚型）':'RAS／KRAS（多亚型）'};
   var mechanismAliases={'间皮素':'mesothelin msln 间皮素','TROP2':'trop-2','HER2':'ERBB2','HER3':'ERBB3','B7-H3':'CD276','c-Met':'MET','FRα':'FOLR1 叶酸受体','TCR-T 细胞':'TCRT','化疗 / 化疗递送':'化疗 chemotherapy','免疫检查点单抗':'免疫 immunotherapy','放疗':'放射 radiation'};
   function ordered(list,order){return list.sort(function(a,b){var ai=order.indexOf(a),bi=order.indexOf(b);return (ai<0?999:ai)-(bi<0?999:bi)||a.localeCompare(b,'zh');});}
   function makeMechanismGroup(names,dimension,container){
@@ -723,6 +725,9 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   function showField(k){return exportField(k)&&k!=='req'&&k!=='kras';}
   cfg.fields.forEach(function(f){ if(showField(f[0])) addColumnHead(f); });
   var q=document.getElementById('q'); q.oninput=function(){page=0;render();};
+  function submitSearch(){page=0;render();document.getElementById('results-wrap').scrollIntoView();}
+  document.getElementById('search-submit').onclick=submitSearch;
+  q.onkeydown=function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();submitSearch();}};
   function resetFilters(){
     document.getElementById('mechanism-search').value='';provinceFilter='';cityFilter='';provinceSelect.value='';updateCities();filters={};scopeFilters={};designFilters={};mechanismType='';mechanismTarget='';centerFilter='';hospitalFilter='';cnOpen=false;hideUnfit=false;pancOnly=false;watchedOnly=false;callOnly=false;hospitalView=false;q.value='';
     Object.keys(selByKey).forEach(function(k){selByKey[k].value='';});page=0;
