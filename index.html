@@ -44,6 +44,9 @@ th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;verti
 th{position:sticky;top:0;background:var(--panel);font-weight:600;white-space:nowrap;cursor:pointer;user-select:none}
 th.sorted::after{content:" ▾"}th.sorted.asc::after{content:" ▴"}
 td.id{white-space:nowrap;width:1%}td.title,td.title_zh{min-width:200px;width:260px;max-width:260px}td.reason{min-width:220px;color:var(--muted)}
+th[data-k=lines],td.lines{min-width:132px;width:132px}th[data-k=phase],td.phase{min-width:84px;width:84px;border-left:1px solid var(--line)}
+.line-value,.phase-value{display:block;white-space:nowrap;font-weight:600}.line-detail{display:block;margin-top:4px;font-size:12px;color:var(--muted);white-space:nowrap}
+.region-filters{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}.region-filters label{display:grid;gap:5px;font-size:13px}.region-filters select{min-width:160px;max-width:240px}.region-clear{align-self:end}
 td.china_centers{min-width:96px;width:128px;max-width:160px;font-size:12px}td.china_centers:has(details[open]){width:280px;max-width:360px}
 td.pdac_evidence{min-width:280px;max-width:520px;font-size:12px}.ev-card{margin:0 0 8px}.ev-level{display:inline-block;margin-left:4px;font-size:11px;padding:0 5px;border-radius:4px;background:var(--later-bg);color:var(--later)}.ev-miss{color:var(--muted)}.ev-item{margin-top:3px}.ev-row{margin:0 0 8px;line-height:1.5;padding:6px 8px;border-radius:6px;background:var(--bg)}.ev-row:last-child{margin-bottom:0}.ev-k{font-size:11px;font-weight:650;margin-bottom:3px}.ev-plan{box-shadow:inset 3px 0 0 var(--accent)}.ev-plan .ev-k{color:var(--accent)}.ev-why{box-shadow:inset 3px 0 0 var(--ask)}.ev-why .ev-k{color:var(--ask)}.ev-got{box-shadow:inset 3px 0 0 var(--ok)}.ev-got .ev-k{color:var(--ok)}.ev-got b,.ev-ref b{font-weight:700}.ev-ref{background:transparent;padding:2px 0 0}.ev-ref>.ev-k{color:var(--muted)}.ev-ref-group{margin:0 0 6px;padding:6px 8px 4px;border-radius:6px;background:var(--bg)}.ev-ref-group:last-child{margin-bottom:0}.ev-ref-h{font-size:11px;font-weight:700;margin-bottom:4px}.ev-ref-h.l1{color:var(--accent)}.ev-ref-h.l2{color:var(--ask)}.ev-ref-h.l3{color:var(--ok)}.ev-ref-line{margin:0 0 5px}.ev-ref-line:last-child{margin-bottom:2px}.ev-fold{margin:0}.ev-fold>summary{cursor:pointer;list-style:none}.ev-fold>summary::-webkit-details-marker{display:none}.ev-fold>summary::before{content:"▸ ";color:var(--muted)}.ev-fold[open]>summary::before{content:"▾ "}.ev-fold[open] .ev-ref-group:first-of-type{margin-top:6px}
 .center-details summary{cursor:pointer;color:var(--accent)}
@@ -179,7 +182,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 }
 .secondary-filter>summary{cursor:pointer;color:var(--muted);font-size:13px}.secondary-filter[open]>summary{margin-bottom:12px}.detail-loading{color:var(--muted);font-size:13px}.detail-loading button{margin-left:8px}
 </style>
-<link rel="preload" as="script" href="assets/f2e63e2c3c36820a/index.js"><link rel="preload" as="script" href="assets/f2e63e2c3c36820a/evidence.js"></head>
+<link rel="preload" as="script" href="assets/fe62ec964c217343/index.js"><link rel="preload" as="script" href="assets/fe62ec964c217343/evidence.js"></head>
 <body>
 <header>
   <h1>胰腺癌临床试验库（通用版）</h1><p class="standalone-note">查找试验、了解研究方案与招募医院。</p>
@@ -223,10 +226,12 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   </section>
     </div>
   </details>
-  <details class="filter-panel secondary-filter" id="center-panel"><summary>按中国研究中心或医院筛选</summary>
+  <details class="filter-panel secondary-filter" id="center-panel"><summary>按省份、城市或医院筛选</summary>
     <div class="panel-head"><h2>中国研究中心</h2><div class="panel-actions"><button class="text-button" id="clear-hospital" hidden>清除医院</button></div></div>
     <div class="chips" id="center-filters"></div>
-    <div class="scope-tip">“非头部”指本页名单外的大陆医院；同一试验有一家这类中心即可筛出。可搜索医院名或城市。</div>
+    <div class="region-filters"><label for="center-province">省份／地区<select id="center-province" aria-label="研究中心省份"></select></label><label for="center-city">城市<select id="center-city" aria-label="研究中心城市"></select></label><button class="text-button region-clear" id="clear-region" hidden>清除地域</button></div>
+    <div class="scope-tip">省份与城市须对应同一家研究中心；未注明地区的中心不计入具体省市。医院是否有名额仍需联系确认。</div>
+    <div class="scope-tip" id="family-center-tip">“非头部”指本页名单外的大陆医院；同一试验有一家这类中心即可筛出。</div>
     <details class="original-kras" id="hospital-picker"><summary><span id="head-hospital-summary">按头部医院筛选</span><span class="active-raw" id="active-hospital"></span></summary><div class="hospital-grid" id="head-hospital-list"></div><div class="scope-tip">点击医院查看它参与的试验；可与中心类型和其他条件叠加。数字随其他已选条件更新。</div></details>
   </details>
 
@@ -271,9 +276,9 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 <div class="pager"><button id="prev">上一页</button><span id="page"></span><button id="next">下一页</button></div></div>
 <div class="note"> 数据来自 ClinicalTrials.gov、国家药审中心药物临床试验登记平台、中国临床试验注册中心（ChiCTR）的公开登记；机制与治疗阶段标签按登记文字自动归类，可能有误，报名前以研究中心答复为准。胰腺癌证据按药物汇总，数字都有出处。客观缓解率是肿瘤明显缩小的人所占比例。疾病控制率是缩小或暂时没长大的人所占比例。中位总生存是一半人还活着的时间。中位无进展生存是一半人的肿瘤还没明显进展的时间。风险比小于 1，表示相对对照更少发生。有数字的在研药写自己的结果。对照是别的试验里一线化疗的成绩：四药 FOLFIRINOX、NALIRIFOX，以及吉西他滨加白蛋白紫杉醇。不能直接比高低。</div>
 <noscript><p class="loading-state">需要开启浏览器的 JavaScript 才能使用筛选。可点微信右上角菜单，在浏览器中打开。</p></noscript>
-<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/f2e63e2c3c36820a/index.js","detailBase":"assets/f2e63e2c3c36820a/","searchSrc":"assets/f2e63e2c3c36820a/search.json","downloadSrc":"assets/f2e63e2c3c36820a/catalog.csv","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","sponsor","related","_benefit","_registryRefs","mechanism","pdac_evidence"]}</script>
-<script src="assets/f2e63e2c3c36820a/index.js" id="data-src"></script>
-<script src="assets/f2e63e2c3c36820a/evidence.js"></script>
+<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/fe62ec964c217343/index.js","detailBase":"assets/fe62ec964c217343/","searchSrc":"assets/fe62ec964c217343/search.json","downloadSrc":"assets/fe62ec964c217343/catalog.csv","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","sponsor","related","_benefit","_registryRefs","mechanism","pdac_evidence"]}</script>
+<script src="assets/fe62ec964c217343/index.js" id="data-src"></script>
+<script src="assets/fe62ec964c217343/evidence.js"></script>
 <script type="application/json" id="data">[]</script>
 <script>
 (function(){
@@ -549,6 +554,37 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   modes.appendChild(recBtn);modes.appendChild(allBtn);modes.appendChild(hospViewBtn);
   document.querySelector('.jump-results').onclick=function(){if(hospitalView){hospitalView=false;render();}};
   var centerFilter='', centerPanel=document.getElementById('center-filters');
+  var familyCenters=!!(cfg.family||cfg.familyToggle),provinceFilter='',cityFilter='';
+  document.getElementById('family-center-tip').hidden=!familyCenters;
+  document.getElementById('hospital-picker').hidden=!familyCenters;
+  var provinceAliases={},cityAliases={},cityProvinces={};
+  function regionKey(v){return String(v||'').toLowerCase().replace(/municipality|province|autonomous region/g,'').replace(/[\s,'’_\-]/g,'');}
+  ['北京市:Beijing','上海市:Shanghai','天津市:Tianjin','重庆市:Chongqing','河北省:Hebei','山西省:Shanxi','辽宁省:Liaoning','吉林省:Jilin','黑龙江省:Heilongjiang','江苏省:Jiangsu','浙江省:Zhejiang','安徽省:Anhui','福建省:Fujian','江西省:Jiangxi','山东省:Shandong','河南省:Henan','湖北省:Hubei','湖南省:Hunan','广东省:Guangdong','海南省:Hainan','四川省:Sichuan','贵州省:Guizhou','云南省:Yunnan','陕西省:Shaanxi','甘肃省:Gansu','青海省:Qinghai','内蒙古自治区:Inner Mongolia:Neimenggu','广西壮族自治区:Guangxi','宁夏回族自治区:Ningxia','新疆维吾尔自治区:Xinjiang','西藏自治区:Tibet:Xizang','香港特别行政区:Hong Kong:HKSAR:香港','澳门特别行政区:Macau:Macao:澳门','台湾省:Taiwan:台湾'].forEach(function(line){var a=line.split(':');a.concat([a[0].replace(/壮族自治区|回族自治区|维吾尔自治区|特别行政区|自治区|省|市/g,'')]).forEach(function(v){provinceAliases[regionKey(v)]=a[0];});});
+  ['北京:Beijing:北京市','上海:Shanghai:上海市','天津:Tianjin:天津市','重庆:Chongqing:重庆市','广州:Guangzhou:广东省','深圳:Shenzhen:广东省','珠海:Zhuhai:广东省','佛山:Foshan:广东省','东莞:Dongguan:广东省','惠州:Huizhou:广东省','汕头:Shantou:广东省','中山:Zhongshan:广东省','梅州:Meizhou:广东省','湛江:Zhanjiang:广东省','韶关:Shaoguan:广东省','江门:Jiangmen:广东省','清远:Qingyuan:广东省','南京:Nanjing:江苏省','苏州:Suzhou:江苏省','无锡:Wuxi:江苏省','南通:Nantong:江苏省','常州:Changzhou:江苏省','徐州:Xuzhou:江苏省','扬州:Yangzhou:江苏省','盐城:Yancheng:江苏省','镇江:Zhenjiang:江苏省','连云港:Lianyungang:江苏省','淮安:Huaian:江苏省','宿迁:Suqian:江苏省','杭州:Hangzhou:浙江省','宁波:Ningbo:浙江省','温州:Wenzhou:浙江省','金华:Jinhua:浙江省','绍兴:Shaoxing:浙江省','湖州:Huzhou:浙江省','丽水:Lishui:浙江省','衢州:Quzhou:浙江省','福州:Fuzhou:福建省','厦门:Xiamen:福建省','泉州:Quanzhou:福建省','漳州:Zhangzhou:福建省','合肥:Hefei:安徽省','蚌埠:Bengbu:安徽省','芜湖:Wuhu:安徽省','阜阳:Fuyang:安徽省','南昌:Nanchang:江西省','赣州:Ganzhou:江西省','济南:Jinan:山东省','青岛:Qingdao:山东省','烟台:Yantai:山东省','潍坊:Weifang:山东省','淄博:Zibo:山东省','临沂:Linyi:山东省','济宁:Jining:山东省','菏泽:Heze:山东省','聊城:Liaocheng:山东省','滨州:Binzhou:山东省','枣庄:Zaozhuang:山东省','泰安:Taian:山东省','郑州:Zhengzhou:河南省','洛阳:Luoyang:河南省','南阳:Nanyang:河南省','新乡:Xinxiang:河南省','安阳:Anyang:河南省','开封:Kaifeng:河南省','平顶山:Pingdingshan:河南省','武汉:Wuhan:湖北省','宜昌:Yichang:湖北省','襄阳:Xiangyang:湖北省','荆州:Jingzhou:湖北省','十堰:Shiyan:湖北省','长沙:Changsha:湖南省','衡阳:Hengyang:湖南省','株洲:Zhuzhou:湖南省','岳阳:Yueyang:湖南省','常德:Changde:湖南省','永州:Yongzhou:湖南省','成都:Chengdu:四川省','绵阳:Mianyang:四川省','德阳:Deyang:四川省','南充:Nanchong:四川省','泸州:Luzhou:四川省','宜宾:Yibin:四川省','内江:Neijiang:四川省','遂宁:Suining:四川省','自贡:Zigong:四川省','沈阳:Shenyang:辽宁省','大连:Dalian:辽宁省','抚顺:Fushun:辽宁省','阜新:Fuxin:辽宁省','长春:Changchun:吉林省','吉林:Jilin City:吉林省','通化:Tonghua:吉林省','哈尔滨:Harbin:黑龙江省','大庆:Daqing:黑龙江省','佳木斯:Jiamusi:黑龙江省','石家庄:Shijiazhuang:河北省','保定:Baoding:河北省','廊坊:Langfang:河北省','唐山:Tangshan:河北省','沧州:Cangzhou:河北省','秦皇岛:Qinhuangdao:河北省','承德:Chengde:河北省','太原:Taiyuan:山西省','大同:Datong:山西省','长治:Changzhi:山西省','西安:Xian:陕西省','宝鸡:Baoji:陕西省','汉中:Hanzhong:陕西省','兰州:Lanzhou:甘肃省','武威:Wuwei:甘肃省','西宁:Xining:青海省','银川:Yinchuan:宁夏回族自治区','昆明:Kunming:云南省','贵阳:Guiyang:贵州省','遵义:Zunyi:贵州省','南宁:Nanning:广西壮族自治区','桂林:Guilin:广西壮族自治区','柳州:Liuzhou:广西壮族自治区','贵港:Guigang:广西壮族自治区','河池:Hechi:广西壮族自治区','海口:Haikou:海南省','琼海:Qionghai:海南省','呼和浩特:Hohhot:内蒙古自治区','包头:Baotou:内蒙古自治区','赤峰:Chifeng:内蒙古自治区','台北:Taipei:台湾省','新北:New Taipei City:台湾省','台中:Taichung:台湾省','台南:Tainan:台湾省','高雄:Kaohsiung:台湾省','桃园:Taoyuan:台湾省','新竹:Hsinchu:台湾省','彰化:Changhua:台湾省','嘉义:Chiayi City:台湾省'].forEach(function(line){var a=line.split(':'),name=a[0]+'市';[a[0],name,a[1],a[1]+' City'].forEach(function(v){cityAliases[regionKey(v)]=name;});cityProvinces[name]=a[2];});
+  var regionCache=new WeakMap();
+  function regionOf(s){
+    if(regionCache.has(s))return regionCache.get(s);
+    var pk=regionKey(s.province),ck=regionKey(s.city),province=provinceAliases[pk]||'',city=cityAliases[ck]||'';
+    if(!province&&city&&['suzhou','fuzhou','taizhou','yulin'].indexOf(ck)<0)province=cityProvinces[city]||'';
+    if(!province)province=provinceAliases[regionKey(s.country)]||'';
+    if(ck==='suzhou')city=province==='安徽省'?'宿州市':province==='江苏省'?'苏州市':'';
+    if(ck==='fuzhou')city=province==='江西省'?'抚州市':province==='福建省'?'福州市':'';
+    if(ck==='taizhou')city=province==='江苏省'?'泰州市':province==='浙江省'?'台州市':'';
+    if(ck==='yulin')city=province==='陕西省'?'榆林市':province==='广西壮族自治区'?'玉林市':'';
+    if(/^(北京市|上海市|天津市|重庆市)$/.test(province))city=province;
+    if(!city&&s.city&&!/^(?:china|na|unknown|none|please select)$/i.test(s.city)&&!provinceAliases[ck])city=String(s.city).trim();
+    if(province==='香港特别行政区'||province==='澳门特别行政区')city=province==='香港特别行政区'?'香港':'澳门';
+    var region={province:province,city:city};regionCache.set(s,region);return region;
+  }
+  function siteMatches(s,province,city,hospital){var g=regionOf(s);return (!province||g.province===province)&&(!city||g.city===city)&&(!hospital||(s.hospital||s.name)===hospital);}
+  function regionMatches(r){return (r.center_sites||[]).some(function(s){return siteMatches(s,provinceFilter,cityFilter,hospitalFilter);});}
+  var provinceSelect=document.getElementById('center-province'),citySelect=document.getElementById('center-city'),regions={};
+  rows.forEach(function(r){(r.center_sites||[]).forEach(function(s){var g=regionOf(s);if(g.province){if(!regions[g.province])regions[g.province]={};if(g.city)regions[g.province][g.city]=true;}});});
+  provinceSelect.add(new Option('全部省份／地区',''));Object.keys(regions).sort(function(a,b){return a.localeCompare(b,'zh');}).forEach(function(p){provinceSelect.add(new Option(p,p));});
+  function updateCities(){citySelect.textContent='';citySelect.add(new Option(provinceFilter?'全部城市':'先选择省份／地区',''));citySelect.disabled=!provinceFilter;Object.keys(regions[provinceFilter]||{}).sort(function(a,b){return a.localeCompare(b,'zh');}).forEach(function(c){citySelect.add(new Option(c,c));});citySelect.value=cityFilter;document.getElementById('clear-region').hidden=!provinceFilter&&!cityFilter;}
+  provinceSelect.onchange=function(){provinceFilter=provinceSelect.value;cityFilter='';updateCities();page=0;render();};citySelect.onchange=function(){cityFilter=citySelect.value;page=0;render();};
+  document.getElementById('clear-region').onclick=function(){provinceFilter='';cityFilter='';provinceSelect.value='';updateCities();page=0;render();};updateCities();
+
   function centerMatches(r,value){
     var sites=r.center_sites||[];
     if(value==='other')return sites.some(function(s){return s.group==='非头部';});
@@ -557,7 +593,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     if(value==='hmt')return sites.some(function(s){return s.group==='港澳台';});
     return true;
   }
-  [['','全部'],['other','有非头部中心'],['head','已知大陆中心仅头部'],['unknown','中心信息待核实'],['hmt','有港澳台中心']].forEach(function(option){
+  [['','全部']].concat(familyCenters?[['other','有非头部中心'],['head','已知大陆中心仅头部']]:[]).concat([['unknown','中心信息待核实'],['hmt','有港澳台中心']]).forEach(function(option){
     var b=document.createElement('button');b.className='chip';b.dataset.centerFilter=option[0];b.appendChild(document.createTextNode(option[1]));
     if(option[0]){var total=document.createElement('span');total.className='chip-count';total.textContent=rows.filter(function(r){return centerMatches(r,option[0]);}).length;b.appendChild(total);}
     b.onclick=function(){centerFilter=centerFilter===option[0]?'':option[0];page=0;render();};centerPanel.appendChild(b);
@@ -565,7 +601,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   var hospitalFilter='', hospitalPanel=document.getElementById('head-hospital-list');
   function hospitalMatches(r,value){return !value||(r.center_sites||[]).some(function(s){return (s.hospital||s.name)===value;});}
   document.getElementById('head-hospital-summary').textContent='按头部医院筛选（'+(cfg.headHospitals||[]).length+' 家）';
-  (cfg.headHospitals||[]).forEach(function(name){
+  (familyCenters?cfg.headHospitals||[]:[]).forEach(function(name){
     var b=document.createElement('button');b.className='chip hospital-chip';b.dataset.hospital=name;b.appendChild(document.createTextNode(name));
     var total=document.createElement('span');total.className='chip-count';total.textContent=rows.filter(function(r){return hospitalMatches(r,name);}).length;b.appendChild(total);
     b.onclick=function(){hospitalFilter=hospitalFilter===name?'':name;page=0;render();};hospitalPanel.appendChild(b);
@@ -680,7 +716,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     group.appendChild(options);
     scopePanel.appendChild(group);
   });
-  if(cfg.csv){var a=document.createElement('a');a.href=cfg.csv;a.textContent='下载全库表格';a.setAttribute('download','');a.onclick=function(e){e.preventDefault();if(cfg.downloadSrc){var direct=document.createElement('a');direct.href=cfg.downloadSrc;direct.download=cfg.csv;direct.click();return;}function csvValue(v){v=String(v==null?'':v);if(/^[=+@-]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';}var fields=cfg.fields.filter(function(f){return exportField(f[0]);});var lines=[fields.map(function(f){return csvValue(f[1]);}).join(',')];rows.forEach(function(r){lines.push(fields.map(function(f){return csvValue(f[0]==='contacts'?contactDisplay(r[f[0]]):r[f[0]]);}).join(','));});var url=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}));var link=document.createElement('a');link.href=url;link.download=cfg.csv;link.click();setTimeout(function(){URL.revokeObjectURL(url);},1000);};document.getElementById('catalog-download').appendChild(a);}
+  if(cfg.csv){var a=document.createElement('a');a.href=cfg.csv;a.textContent='下载全库表格';a.setAttribute('download','');a.onclick=function(e){e.preventDefault();if(cfg.downloadSrc){var direct=document.createElement('a');direct.href=cfg.downloadSrc;direct.download=cfg.csv;direct.click();return;}function csvValue(v){v=String(v==null?'':v);if(/^[=+@-]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"';}var fields=cfg.fields.filter(function(f){return exportField(f[0]);});var lines=[fields.map(function(f){return csvValue(f[1]);}).join(',')];rows.forEach(function(r){lines.push(fields.map(function(f){return csvValue(f[0]==='contacts'?contactDisplay(r[f[0]]):f[0]==='china_centers'&&!familyCenters?String(r[f[0]]||'').replace(/^\[(?:头部|非头部|港澳台|待核实)\]\s*/gm,''):r[f[0]]);}).join(','));});var url=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}));var link=document.createElement('a');link.href=url;link.download=cfg.csv;link.click();setTimeout(function(){URL.revokeObjectURL(url);},1000);};document.getElementById('catalog-download').appendChild(a);}
   var head=document.getElementById('head');
   var watchHead=document.createElement('th');watchHead.textContent='☆';watchHead.title='关注';watchHead.className='watch';watchHead.scope='col';head.appendChild(watchHead);
   function exportField(k){return k!=='url'&&k!=='center_mix'&&!(cfg.hideEnglishTitle&&k==='title')&&!(!showFamily&&FAMILY_KEYS[k]);}
@@ -688,7 +724,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   cfg.fields.forEach(function(f){ if(showField(f[0])) addColumnHead(f); });
   var q=document.getElementById('q'); q.oninput=function(){page=0;render();};
   function resetFilters(){
-    document.getElementById('mechanism-search').value='';filters={};scopeFilters={};designFilters={};mechanismType='';mechanismTarget='';centerFilter='';hospitalFilter='';cnOpen=false;hideUnfit=false;pancOnly=false;watchedOnly=false;callOnly=false;hospitalView=false;q.value='';
+    document.getElementById('mechanism-search').value='';provinceFilter='';cityFilter='';provinceSelect.value='';updateCities();filters={};scopeFilters={};designFilters={};mechanismType='';mechanismTarget='';centerFilter='';hospitalFilter='';cnOpen=false;hideUnfit=false;pancOnly=false;watchedOnly=false;callOnly=false;hospitalView=false;q.value='';
     Object.keys(selByKey).forEach(function(k){selByKey[k].value='';});page=0;
   }
   document.getElementById('reset-filters').onclick=function(){resetFilters();render();};
@@ -748,16 +784,16 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
       var tip=document.createElement('p');tip.className='sub';tip.textContent=cfg.family?'报编号询问是否接收胰腺癌、当前名额及入组条件。':'通用版仅列联系人姓名；电话、邮箱请点编号查看官方登记。';quick.appendChild(tip);td.appendChild(quick);}
     else if(k==='china_centers'){
       td.className='china_centers';var sites=(r.center_sites||[]).slice();
-      if(!sites.length){td.textContent=r.center_mix||'中心信息待核实';return td;}
-      function siteRank(s){return hospitalFilter&&s.hospital===hospitalFilter?-1:s.group==='非头部'?0:1;}
+      if(!sites.length){td.textContent=familyCenters?(r.center_mix||'中心信息待核实'):'中心信息待核实';return td;}
+      function siteRank(s){return siteMatches(s,provinceFilter,cityFilter,hospitalFilter)&&!!(provinceFilter||cityFilter||hospitalFilter)?-1:familyCenters&&s.group==='非头部'?0:1;}
       sites.sort(function(a,b){return siteRank(a)-siteRank(b);});
       var totals={};sites.forEach(function(s){totals[s.group]=(totals[s.group]||0)+1;});
       var details=document.createElement('details');details.className='center-details';var summary=document.createElement('summary');
-      summary.textContent=['非头部','头部','港澳台','待核实'].filter(function(g){return totals[g];}).map(function(g){return g+' '+totals[g];}).join(' · ');details.appendChild(summary);
+      summary.textContent=familyCenters?['非头部','头部','港澳台','待核实'].filter(function(g){return totals[g];}).map(function(g){return g+' '+totals[g];}).join(' · '):sites.length+' 家研究中心';details.appendChild(summary);
       var list=document.createElement('ul');list.className='center-list';sites.forEach(function(s){
         var item=document.createElement('li'),group=document.createElement('span'),status=document.createElement('span');
-        group.className='center-group'+(s.group==='非头部'?' other':'');group.textContent=s.group;item.appendChild(group);
-        item.appendChild(document.createTextNode((s.city||s.province||'')+' '+s.name));status.className='center-status'+(String(s.status||'').indexOf('未单列')>=0||s.status==='未登记中心状态'?' unknown':'');status.textContent=s.status;status.title=String(s.status||'').indexOf('未单列')>=0?'登记未写该中心单独招募状态，括号内为整项试验状态':'';item.appendChild(status);list.appendChild(item);
+        if(familyCenters){group.className='center-group'+(s.group==='非头部'?' other':'');group.textContent=s.group;item.appendChild(group);}
+        var g=regionOf(s),location=[g.province,g.city].filter(function(v,i,a){return v&&a.indexOf(v)===i;}).join(' ');item.appendChild(document.createTextNode((location||s.city||s.province||'')+' '+s.name));status.className='center-status'+(String(s.status||'').indexOf('未单列')>=0||s.status==='未登记中心状态'?' unknown':'');status.textContent=s.status;status.title=String(s.status||'').indexOf('未单列')>=0?'登记未写该中心单独招募状态，括号内为整项试验状态':'';item.appendChild(status);list.appendChild(item);
       });details.appendChild(list);td.appendChild(details);
     }
     else if(k==='mechanism'){
@@ -780,8 +816,8 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     else{td.textContent=v;}
     if(k==='req'&&String(v||'').trim())td.textContent=stripCache(v);
     if(k==='title')td.className='title'; if(k==='title_zh')td.className='title_zh'; if(k==='reason')td.className='reason'; if(k==='gate_summary'){var gateParts=[];if(String(r.kras||'').trim())gateParts.push('KRAS：'+String(r.kras).trim());if(String(r.lines||'').trim())gateParts.push('线数：'+String(r.lines).trim());if(String(r.phase||'').trim())gateParts.push('分期：'+String(r.phase).trim());if(stripCache(r.req))gateParts.push(stripCache(r.req));td.className='gate_summary';td.textContent=gateParts.length?gateParts.join(' · '):(v||'关键门槛见登记原文');}
-    if(k==='lines')td.title=r.line_reason||'';
-    if(k==='phase')td.title=r.phase_reason||'';
+    if(k==='lines'){td.className='lines';td.textContent='';var main=document.createElement('span');main.className='line-value';main.textContent=String(v).replace(/（.*?）/g,'');td.appendChild(main);var detail=String(v).match(/（(.*?)）/);if(detail){var sub=document.createElement('span');sub.className='line-detail';sub.textContent=detail[1];td.appendChild(sub);}td.title=r.line_reason||'';}
+    if(k==='phase'){td.className='phase';td.textContent='';var value=document.createElement('span');value.className='phase-value';value.textContent=String(v).replace(/III|Ⅲ/g,'三').replace(/IV|Ⅳ/g,'四').replace(/II|Ⅱ/g,'二').replace(/I|Ⅰ/g,'一');td.appendChild(value);td.title=r.phase_reason||'';}
     if(k==='trial_kind'&&v==='未明确')td.title='登记未明确说明是否由研究者发起；未明确不等于非 IIT。';
     return td;
   }
@@ -803,7 +839,8 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     });
   });
   Array.prototype.forEach.call(centerPanel.querySelectorAll('button'),function(b){addFacet('center',b,function(r){return centerMatches(r,b.dataset.centerFilter);});});
-  Array.prototype.forEach.call(hospitalPanel.querySelectorAll('button'),function(b){addFacet('hospital',b,function(r){return hospitalMatches(r,b.dataset.hospital);});});
+  var hospitalRegionMasks={};
+  Array.prototype.forEach.call(hospitalPanel.querySelectorAll('button'),function(b){addFacet('hospital',b,null,null,function(){var key=JSON.stringify([provinceFilter,cityFilter,b.dataset.hospital]);if(!hospitalRegionMasks[key])hospitalRegionMasks[key]=Uint8Array.from(rows,function(r){return (r.center_sites||[]).some(function(s){return siteMatches(s,provinceFilter,cityFilter,b.dataset.hospital);})?1:0;});return hospitalRegionMasks[key];});});
   Array.prototype.forEach.call(designPanel.querySelectorAll('button'),function(b){addFacet('design:'+b.dataset.designKey,b,function(r){return designMatches(r,b.dataset.designKey,b.dataset.designValue);});});
   Array.prototype.forEach.call(mechanismPanel.querySelectorAll('button[data-dimension]'),function(b){addFacet('mechanism',b,null,null,function(){return mechanismMask(b.dataset.dimension==='type'?b.dataset.value:mechanismType,b.dataset.dimension==='target'?b.dataset.value:mechanismTarget);});});
   Array.prototype.forEach.call(krasTags.querySelectorAll('button'),function(b){addFacet('field:kras',b,function(r){return vals(r,'kras').indexOf(b.dataset.k)>=0;});});
@@ -822,7 +859,8 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     Object.keys(designFilters).forEach(function(k){if(designFilters[k])predicate('design:'+k,function(r){return designMatches(r,k,designFilters[k]);});});
     if(mechanismType||mechanismTarget)predicate('mechanism',function(r){return window.__trialMechanismMatches(r._mechanisms,mechanismType,mechanismTarget);});
     if(centerFilter)predicate('center',function(r){return centerMatches(r,centerFilter);});
-    if(hospitalFilter)predicate('hospital',function(r){return hospitalMatches(r,hospitalFilter);});
+    if(provinceFilter||cityFilter)predicate('region',function(r){return (r.center_sites||[]).some(function(s){return siteMatches(s,provinceFilter,cityFilter,'');});});
+    if(hospitalFilter)predicate('hospital',regionMatches);
     if(hideUnfit)predicate('hideUnfit',function(r){return r.verdict!=='不适用';});
     if(pancOnly)predicate('pancOnly',function(r){return typeof r._pancOnly==='boolean'?r._pancOnly:PANC.test((r.title||'')+' '+(r.title_zh||''));});
     if(callOnly&&cfg.showCallList&&!(cfg.familyToggle&&!showFamily))predicate('callOnly',function(r){return !!r.call_ready;});
@@ -853,6 +891,8 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     if(centerFilter){var selected=centerPanel.querySelector('[data-center-filter="'+centerFilter+'"]');add('中心：'+selected.firstChild.textContent,function(){centerFilter='';});}
     if(mechanismType)add('治疗方式：'+mechanismType,function(){mechanismType='';});
     if(mechanismTarget)add('靶点：'+(mechanismLabels[mechanismTarget]||mechanismTarget),function(){mechanismTarget='';});
+    if(provinceFilter)add('省份：'+provinceFilter,function(){provinceFilter='';cityFilter='';provinceSelect.value='';updateCities();});
+    if(cityFilter)add('城市：'+cityFilter,function(){cityFilter='';updateCities();});
     if(hospitalFilter)add('医院：'+hospitalFilter,function(){hospitalFilter='';});
     if(cnOpen)add('国内招募中 / 尚未招募',function(){cnOpen=false;});
     if(hideUnfit)add('隐藏对父亲不适用',function(){hideUnfit=false;});
@@ -882,7 +922,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     if(hospitalView){
       var counts=Object.create(null), openCounts=Object.create(null);
       out.forEach(function(r){(r.center_sites||[]).forEach(function(s){
-        var name=s.hospital||s.name; if(!name||s.group==='待核实')return;
+        var name=s.hospital||s.name; if(!name||s.group==='待核实'||!siteMatches(s,provinceFilter,cityFilter,''))return;
         counts[name]=(counts[name]||0)+1;
         if(s.status==='招募中'||s.status==='尚未招募')openCounts[name]=(openCounts[name]||0)+1;
       });});
