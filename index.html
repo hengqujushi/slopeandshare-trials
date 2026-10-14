@@ -21,8 +21,8 @@ h1{font-size:20px;margin:0 0 4px}
 .loading-state{max-width:1368px;margin:16px auto;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:10px}
 .loading-state strong{display:block;font-size:16px;margin-bottom:6px}.loading-state p{margin:0;color:var(--muted)}
 .catalog-loading .note{display:none}
-.catalog-loading .warn,.catalog-loading .info-tip{display:none}</style><link id="catalog-style" rel="stylesheet" media="print" href="assets/12bd5b1eb1aa31a6/style.css"><noscript><link rel="stylesheet" href="assets/12bd5b1eb1aa31a6/style.css"></noscript>
-<link rel="preload" as="script" href="assets/12bd5b1eb1aa31a6/index.js"><link rel="preload" as="script" href="assets/12bd5b1eb1aa31a6/evidence.js"><link rel="preload" as="script" href="assets/12bd5b1eb1aa31a6/app.js"></head>
+.catalog-loading .warn,.catalog-loading .info-tip{display:none}</style><link id="catalog-style" rel="stylesheet" media="print" href="assets/2d307bea15f3d81b/style.css"><noscript><link rel="stylesheet" href="assets/2d307bea15f3d81b/style.css"></noscript>
+<link rel="preload" as="script" href="assets/2d307bea15f3d81b/index.js"><link rel="preload" as="script" href="assets/2d307bea15f3d81b/evidence.js"><link rel="preload" as="script" href="assets/2d307bea15f3d81b/app.js"></head>
 <body>
 <header>
   <h1>胰腺癌临床试验库（通用版）</h1><p class="standalone-note">查找试验、了解研究方案与招募医院。</p>
@@ -68,45 +68,25 @@ h1{font-size:20px;margin:0 0 4px}
   </section>
     </div>
   </details>
-  <details class="filter-panel secondary-filter" id="center-panel"><summary>按省份、城市或医院筛选</summary>
-    <div class="panel-head"><h2>中国研究中心</h2><div class="panel-actions"><button class="text-button" id="clear-hospital" hidden>清除医院</button></div></div>
+  <section class="filter-panel" id="center-panel" hidden>
+    <div class="panel-head"><h2>研究中心类型</h2></div>
     <div class="chips" id="center-filters"></div>
-    <div class="scope-tip">省份与城市须对应同一家研究中心；未注明地区的中心不计入具体省市。医院是否有名额仍需联系确认。</div>
     <div class="scope-tip" id="family-center-tip">“非头部”指本页名单外的大陆医院；同一试验有一家这类中心即可筛出。</div>
-    <details class="original-kras" id="hospital-picker"><summary><span id="head-hospital-summary">按头部医院筛选</span><span class="active-raw" id="active-hospital"></span></summary><div class="hospital-grid" id="head-hospital-list"></div><div class="scope-tip">点击医院查看它参与的试验；可与中心类型和其他条件叠加。数字随其他已选条件更新。</div></details>
-  </details>
+  </section>
 
 </div>
 <div class="active-filters" id="active-filters" aria-label="当前已选条件"></div>
-<div class="help"><details>
-  <summary>如何联系招募医院？</summary>
-  <p class="tip">点表格里的<b>编号</b>会打开该试验的官方登记页。三个来源的页面不一样：</p>
-  <h3>编号以 NCT 开头（ClinicalTrials.gov，英文）</h3>
+<div class="help"><details id="contact-guide">
+  <summary>联系医院：先看哪里、问什么？</summary>
   <ol>
-    <li>打开后往下找 <b>Contacts and Locations</b>（联系人与研究地点）一节。</li>
-    <li>最上面的 <b>Central Contact</b> 是总联系人（多为申办药企），可问国内有哪些中心在招。</li>
-    <li>下面按国家列出各医院：找 <b>China</b>，每家医院会写招募状态（Recruiting = 正在招募，Not yet recruiting = 尚未开始）以及联系人姓名、电话、邮箱。</li>
-    <li>"中国有中心"一列为"否"的，国内暂时没有登记的医院。</li>
+    <li><b>找医院：</b>展开该试验的“中国研究中心”和“医院与联系”，找方便前往的医院及联系人。</li>
+    <li><b>找联系方式：</b>本页未列电话或邮箱时，点试验编号到官方登记页查。联系不上，可向医院临床试验机构办公室（GCP 办公室）报编号询问。</li>
+    <li><b>确认名额：</b>报上编号，问“胰腺癌队列现在还招吗？有名额吗？我的治疗经历和检测结果是否符合初筛条件？”</li>
   </ol>
-  <h3>编号以 CTR 开头（国家药审中心药物临床试验登记平台，中文）</h3>
-  <ol>
-    <li>点编号会打开登记平台的查询页；如果没有直接显示该试验，在"登记号"一栏输入这个编号，点查询，再点试验题目进入详情。</li>
-    <li>详情页 <b>二、申请人信息</b>：申办方（药企）联系人的座机、手机和邮箱。</li>
-    <li><b>四、研究者信息</b>：①主要研究者（牵头医生）的电话、邮箱和医院；②<b>各参加机构信息</b>：所有参加的医院、每家的负责医生和所在城市。</li>
-    <li><b>六、试验状态信息</b>：写着"招募中"还是"尚未招募"。</li>
-  </ol>
-  <h3>编号以 ChiCTR 开头（中国临床试验注册中心，多为医生发起的研究）</h3>
-  <ol>
-    <li>详情页的 <b>申请注册联系人</b>、<b>研究负责人</b>：姓名、电话、邮箱和所在单位。</li>
-    <li><b>研究实施负责（组长）单位</b> 和下面的 <b>研究实施地点</b>：在哪些医院做。</li>
-    <li><b>征募研究对象情况</b>：正在进行 = 在招，尚未开始 = 还没开始招。</li>
-  </ol>
-  <h3>打电话之前</h3>
-  <ul>
-    <li>登记信息常常滞后：写着"尚未招募"的可能已经开了，写着"招募中"的也可能已经满员，<b>以医院答复为准</b>。</li>
-    <li>登记的电话打不通时，可以打该医院的<b>临床试验机构办公室</b>（很多医院叫"GCP 办公室"），或看医院的临床试验公众号，报上编号询问。</li>
-    <li>提前准备好：病理报告、基因检测报告（尤其 KRAS 等突变结果）、既往治疗记录（用过什么药、什么时候结束）、最近的影像和化验单。研究医生通常先看这些再决定能不能来筛选。</li>
-  </ul>
+  <p class="tip">联系前备好病理、基因检测、既往用药记录及近期影像、化验资料。登记状态仅供参考，当前名额和入组条件以医院答复为准。</p>
+  <details class="registry-help"><summary>NCT：在英文登记页找联系人</summary><p>找 <b>Contacts and Locations</b>（联系人与研究地点）。<b>Central Contact</b> 是总联系人；医院列表中找 <b>China</b>，查看相应研究中心的联系人和招募状态。</p></details>
+  <details class="registry-help"><summary>CTR：在药审中心登记页找联系人</summary><p>若未直接进入详情，用试验编号在“登记号”栏查询。“研究者信息”列研究医生与参加机构；“申请人信息”列申办方联系方式。</p></details>
+  <details class="registry-help"><summary>ChiCTR：在注册中心登记页找联系人</summary><p>找“申请注册联系人”或“研究负责人”的电话、邮箱；“研究实施地点”列参加医院。是否仍在招募，请向研究中心确认。</p></details>
 </details></div>
 <details class="data-management" id="data-management"><summary>关注与数据管理</summary><p>在结果中点星标可保存关注。换浏览器或手机时，可导出备份，再导入恢复。</p><div class="watch-tools"><span id="watch-status" role="status" aria-live="polite"></span><button id="export-watchlist">导出关注</button><button id="import-watchlist">导入关注</button><input type="file" id="watchlist-file" accept=".json,application/json" hidden><span id="catalog-download"></span></div><p>关注仅保存在本浏览器，更新试验库后保留。同一浏览器内，家庭版与通用版共用关注列表。</p></details>
 <div class="hospital-agg" id="hospital-agg" hidden>
@@ -117,10 +97,10 @@ h1{font-size:20px;margin:0 0 4px}
 <div class="pager"><button id="prev">上一页</button><span id="page"></span><button id="next">下一页</button></div></div>
 <div class="note"> 数据来自 ClinicalTrials.gov、国家药审中心药物临床试验登记平台、中国临床试验注册中心（ChiCTR）的公开登记；机制与治疗阶段标签按登记文字自动归类，可能有误，报名前以研究中心答复为准。胰腺癌证据按药物汇总，数字都有出处。客观缓解率是肿瘤明显缩小的人所占比例。疾病控制率是缩小或暂时没长大的人所占比例。中位总生存是一半人还活着的时间。中位无进展生存是一半人的肿瘤还没明显进展的时间。风险比小于 1，表示相对对照更少发生。有数字的在研药写自己的结果。对照是别的试验里一线化疗的成绩：四药 FOLFIRINOX、NALIRIFOX，以及吉西他滨加白蛋白紫杉醇。不能直接比高低。</div>
 <noscript><p class="loading-state">需要开启浏览器的 JavaScript 才能使用筛选。可点微信右上角菜单，在浏览器中打开。</p></noscript>
-<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/12bd5b1eb1aa31a6/index.js","detailBase":"assets/12bd5b1eb1aa31a6/","searchSrc":"assets/12bd5b1eb1aa31a6/search.json","downloadSrc":"assets/12bd5b1eb1aa31a6/catalog.csv","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","sponsor","related","_benefit","_registryRefs","mechanism","pdac_evidence"]}</script>
-<script defer src="assets/12bd5b1eb1aa31a6/index.js" id="data-src"></script>
-<script defer src="assets/12bd5b1eb1aa31a6/evidence.js"></script>
+<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/2d307bea15f3d81b/index.js","detailBase":"assets/2d307bea15f3d81b/","searchSrc":"assets/2d307bea15f3d81b/search.json","downloadSrc":"assets/2d307bea15f3d81b/catalog.csv","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","sponsor","related","_benefit","_registryRefs","mechanism","pdac_evidence"]}</script>
+<script defer src="assets/2d307bea15f3d81b/index.js" id="data-src"></script>
+<script defer src="assets/2d307bea15f3d81b/evidence.js"></script>
 <script type="application/json" id="data">[]</script>
-<script defer src="assets/12bd5b1eb1aa31a6/app.js"></script>
+<script defer src="assets/2d307bea15f3d81b/app.js"></script>
 </body>
 </html>
