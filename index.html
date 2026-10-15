@@ -186,14 +186,34 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 #mechanism-filter>summary{display:flex;align-items:center;flex-wrap:wrap;gap:4px;color:var(--text);font-weight:600}#mechanism-filter>summary::after{content:'展开';margin-left:auto;color:var(--accent);font-size:12px;font-weight:400}#mechanism-filter[open]>summary::after{content:'收起'}
 .secondary-filter>summary{cursor:pointer;color:var(--muted);font-size:13px}.secondary-filter[open]>summary{margin-bottom:12px}.detail-loading{color:var(--muted);font-size:13px}.detail-loading button{margin-left:8px}
 
+/* One shared, first-document guide stays usable while the index downloads. */
+.start-help{max-width:1400px;margin:0 auto;padding:0 16px 8px}
+.start-help details{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:4px 14px;font-size:13px;line-height:1.8}
+.start-help summary{cursor:pointer;color:var(--accent);min-height:36px;padding:4px 0;display:list-item}
+.start-help ol{padding-left:20px;margin:8px 0}.start-help li{margin:5px 0}.start-help p{margin:8px 0}
+.start-help .tip{color:var(--muted)}.line-help-link{font-size:13px;white-space:nowrap;text-underline-offset:3px}
+#trial-start-help{scroll-margin-top:12px}
+@media(max-width:700px){.start-help summary{min-height:44px}.line-help-link{display:inline-flex;align-items:center;min-height:44px}}
+
 #initial-filters{margin:12px 0}.early-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.early-filters label{display:grid;gap:5px;font-size:14px}.early-filters select{width:100%;min-width:0;padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--text);font:inherit}.early-status{margin-top:12px!important;font-size:13px}</style>
-<link rel="preload" as="script" fetchpriority="high" href="assets/6496b2ee69739025/index.js"></head>
+<link rel="preload" as="script" fetchpriority="high" href="assets/d0837149c29acbb0/index.js"></head>
 <body>
 <header>
   <h1>胰腺癌临床试验库（通用版）</h1><p class="standalone-note">查找试验、了解研究方案与招募医院。</p>
   <div class="sub" id="sub"></div>
   <a class="jump-results" href="#results-wrap">直接看筛选结果 ↓</a>
 </header>
+<div class="start-help"><details id="trial-start-help">
+  <summary>第一次找临床？线数怎么选</summary>
+  <ol>
+    <li>先选方便前往的省份或城市。清楚想找哪一线的试验时再选线数；不确定，先保留“全部”。</li>
+    <li>有明确靶点或治疗方式时再选，不知道可以不选。</li>
+    <li>看看候选的关键门槛、胰腺癌研究证据和研究医院。记下试验编号，再按“联系医院”指南核对。</li>
+  </ol>
+  <p><b>临床试验不都属于一线。</b>“一线、二线”说的是治疗先后；“I、II、III 期”说的是研究阶段。各项目、各队列对既往治疗的要求不同。</p>
+  <p>具体找哪一线、能否参加，请医生或研究中心结合既往治疗和试验要求确认，不按换过几种药简单计算。</p>
+  <p class="tip">“全部”表示不加线数筛选；“不限线数”是试验的登记标签，两者不同。</p>
+</details></div>
 <div class="loading-state" id="catalog-loading" role="status" aria-live="polite"><strong>正在准备筛选项…</strong><p>试验数据载入后，即可按招募状态、治疗方式和医院查找。</p></div>
 <div class="warn"><div><b>收录含多癌种试验；能否入组、中心是否有名额，请核对登记并问医院。</b><details><summary>收录范围与筛选说明</summary><div class="scope-copy">⚠️ <b>本库不只收胰腺癌试验。</b>为了不漏掉新药，库里还收了很多"晚期实体瘤"篮子试验（例如 RAS 抑制剂、B7-H3 抗体偶联药等，常同时招多种癌症），以及少量其他瘤种的试验。<br>
 <b>收录范围</b>：所有胰腺癌试验，加上国内（含港澳台）不限瘤种的实体瘤试验；只收其他具体癌种（如只收肺癌）的不收。<br><b>请先看题目里写的瘤种</b>：题目只写"实体瘤"的，要问研究中心是否收胰腺癌；写着其他癌种（肺癌、乳腺癌、脑瘤等）的通常不收胰腺癌。想只看胰腺癌的，点下面的 <b>「只看胰腺癌试验」</b>。<br><b>「关键门槛」列</b>汇总了 KRAS 要求和从登记的入选标准里自动摘出的硬条件（如只收某种 KRAS 亚型、需要某种 HLA 分型或某项检测阳性、只收二线以后），可能有遗漏或误摘，<b>以登记全文为准</b>；空白不代表没有门槛。</div></details></div></div>
@@ -211,7 +231,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     <div class="chips" id="chips"></div><details class="filter-explainer"><summary>筛选数字怎么看？</summary><p id="facet-count-note">数字随其他已选条件更新，表示保留其他条件、选择该项后的登记条数；不同选项可能重叠，数字不能相加。</p></details>
   </section>
   <section class="filter-panel" id="design-panel">
-    <div class="panel-head"><h2>治疗线数与临床分期</h2></div>
+    <div class="panel-head"><h2>治疗线数与试验分期</h2><a class="line-help-link" id="line-help-link" href="#trial-start-help">线数怎么选？</a></div>
     <div class="design-rows" id="design-filters"></div>
     <div class="scope-tip">线数为试验整体标签，具体瘤种队列以入选标准为准。二线/三线及以上含覆盖该线数的范围，仅写经治的单列。I/II 期可在一期和二期下找到；一期含早期一期。IIT 只按登记明确表述标记。鼠标停在表格的线数/分期上可看依据或未明确原因；从题目补充的分期标有“（题目）”。</div>
   </section>
@@ -262,12 +282,19 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 <details class="data-management" id="data-management"><summary>我的关注与备份</summary><p id="watch-status" role="status" aria-live="polite"></p><div class="watch-tools"><button id="export-watchlist">导出关注</button><button id="import-watchlist">导入关注</button><input type="file" id="watchlist-file" accept=".json,application/json" hidden><span id="catalog-download"></span></div><p>关注保存在当前浏览器；换设备前导出关注，再在新设备导入。</p></details>
 <div class="note"> 数据来自 ClinicalTrials.gov、国家药审中心药物临床试验登记平台、中国临床试验注册中心（ChiCTR）的公开登记；机制与治疗阶段标签按登记文字自动归类，可能有误，报名前以研究中心答复为准。胰腺癌证据按药物汇总，数字都有出处。客观缓解率是肿瘤明显缩小的人所占比例。疾病控制率是缩小或暂时没长大的人所占比例。中位总生存是一半人还活着的时间。中位无进展生存是一半人的肿瘤还没明显进展的时间。风险比小于 1，表示相对对照更少发生。有数字的在研药写自己的结果。对照是别的试验里一线化疗的成绩：四药 FOLFIRINOX、NALIRIFOX，以及吉西他滨加白蛋白紫杉醇。不能直接比高低。</div>
 <noscript><p class="loading-state">需要开启浏览器的 JavaScript 才能使用筛选。可点微信右上角菜单，在浏览器中打开。</p></noscript>
-<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/6496b2ee69739025/index.js","detailBase":"assets/6496b2ee69739025/","searchSrc":"assets/6496b2ee69739025/search.json","downloadSrc":"assets/6496b2ee69739025/catalog.csv","evidenceSrc":"assets/6496b2ee69739025/evidence.js","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","_benefit","_registryRefs","pdac_evidence"]}</script>
+<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记日期"],["url","链接"]],"asOf":"2026-10-07","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/d0837149c29acbb0/index.js","detailBase":"assets/d0837149c29acbb0/","searchSrc":"assets/d0837149c29acbb0/search.json","downloadSrc":"assets/d0837149c29acbb0/catalog.csv","evidenceSrc":"assets/d0837149c29acbb0/evidence.js","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","_benefit","_registryRefs","pdac_evidence"]}</script>
 
 
 <script type="application/json" id="data">[]</script>
 <script>window.__startTrialCatalog=function(){if(window.__trialCatalogStarted)return;window.__trialCatalogStarted=true;(function(){
   var cfg=JSON.parse(document.getElementById('config').textContent);
+  document.getElementById('line-help-link').onclick=function(event){
+    event.preventDefault();
+    var guide=document.getElementById('trial-start-help');
+    guide.open=true;
+    guide.querySelector('summary').focus();
+    guide.scrollIntoView({block:'nearest'});
+  };
   if(cfg.detailBase&&!window.__CATALOG_ROWS__)throw new Error('筛选索引加载失败');
   var rows=window.__CATALOG_ROWS__||JSON.parse(document.getElementById('data').textContent);
   rows.forEach(function(r){r._mechanisms=r._mechanisms||window.__trialMechanismFor(r);if(!cfg.detailBase)r.mechanism=(r._mechanisms.displayEntries||r._mechanisms.entries).map(function(e){return e.chemotherapy?(e.role==='对照组'?'对照组化疗：':'化疗方案：')+e.name:e.name+'：'+e.type+' · '+e.targets.join(' / ');}).join('；');});
@@ -598,7 +625,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     return false;
   }
   [['lines','治疗线数',['一线','二线','三线及以上','经治（线数未明确）','不限线数','未明确']],
-   ['phase','临床分期',['一期','二期','三期','四期','早期一期','不适用','未明确']],
+   ['phase','试验分期',['一期','二期','三期','四期','早期一期','不适用','未明确']],
    ['trial_kind','IIT 标识',['IIT（原文明确）','未明确']]].forEach(function(spec){
     var group=document.createElement('div');group.className='scope-group';var label=document.createElement('span');label.className='scope-label';label.textContent=spec[1];group.appendChild(label);
     var options=document.createElement('div');options.className='scope-options';options.setAttribute('role','group');options.setAttribute('aria-label',spec[1]);
@@ -988,7 +1015,7 @@ var early=window.__trialEarlySelection||{};
     form.appendChild(wrapper);
     return input;
   }
-  select('lines', '当前治疗线数', ['一线', '二线', '三线及以上', '经治（线数未明确）', '不限线数', '未明确']);
+  select('lines', '想找的治疗线数', ['一线', '二线', '三线及以上', '经治（线数未明确）', '不限线数', '未明确']);
   var province = select('province', '省份／地区', sorted(Object.keys(options.regions)));
   var city = select('city', '城市', []);
   city.disabled = true;
@@ -1006,5 +1033,5 @@ var early=window.__trialEarlySelection||{};
   box.appendChild(status);
   window.__trialEarlyReady = performance.now();
 })();
-</script><script async src="assets/6496b2ee69739025/index.js" id="data-src" onload="window.__startTrialCatalog()"></script></body>
+</script><script async src="assets/d0837149c29acbb0/index.js" id="data-src" onload="window.__startTrialCatalog()"></script></body>
 </html>
