@@ -144,7 +144,7 @@ td.score{font-variant-numeric:tabular-nums;color:var(--muted)}
 .quick-contact{margin-top:10px;white-space:normal;min-width:125px}.quick-contact summary{color:var(--accent);cursor:pointer}
 .quick-contact[open]{min-width:240px}.quick-contact .contact-content{font-size:13px;line-height:1.7;white-space:normal}
 .source-fold{margin-top:8px;font-size:12px}.source-fold summary{cursor:pointer;color:var(--accent)}.source-fold a{display:block;margin:6px 0;overflow-wrap:anywhere}
-.ev-why>div:last-child,.ev-got>div:last-child,.ev-related-body{white-space:pre-line;line-height:1.7}.ev-background{background:transparent}.ev-background>div{white-space:pre-line;line-height:1.7;padding-top:6px}.ev-background summary{cursor:pointer;color:var(--muted)}
+.ev-why>div:last-child,.ev-got>div:last-child,.ev-related-body{white-space:pre-line;line-height:1.7}.ev-segment+.ev-segment{margin-top:10px}.ev-source{display:block;margin-top:4px;font-size:11px;line-height:1.5;color:var(--muted)}.ev-source a{color:var(--accent);text-decoration:underline;text-underline-offset:2px}.same-study-links{margin-top:5px;font-size:11px;line-height:1.5}.same-study-links a{display:inline-block;margin-right:6px;color:var(--accent)}.ev-background{background:transparent}.ev-background>div{white-space:pre-line;line-height:1.7;padding-top:6px}.ev-background summary{cursor:pointer;color:var(--muted)}
 .mobile-more{display:none}.sort-button{border:0;background:transparent;padding:0;font-weight:600;text-align:left}
 @media(max-width:700px){
  body{font-size:15px}button,select,summary,.jump-results{min-height:44px}summary{display:flex;align-items:center;flex-wrap:wrap}
@@ -196,7 +196,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 @media(max-width:700px){.start-help summary{min-height:44px}.line-help-link{display:inline-flex;align-items:center;min-height:44px}}
 
 #initial-filters{margin:12px 0}.early-filters{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px}.early-filters label{display:grid;gap:5px;font-size:14px}.early-filters select{width:100%;min-width:0;padding:9px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--text);font:inherit}.early-status{margin-top:12px!important;font-size:13px}</style>
-<link rel="preload" as="script" fetchpriority="high" href="assets/7852989df77382fc/index.js"></head>
+<link rel="preload" as="script" fetchpriority="high" href="assets/81eb2a3a2f9f2ef8/index.js"></head>
 <body>
 <header>
   <h1>胰腺癌临床试验库（通用版）</h1><p class="standalone-note">查找试验、了解研究方案与招募医院。</p>
@@ -228,7 +228,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 <div class="filter-sections">
   <section class="filter-panel">
     <div class="panel-head"><h2>常用筛选</h2><div class="panel-actions"><button class="text-button" id="reset-filters">清除全部筛选</button></div></div>
-    <div class="chips" id="chips"></div><details class="filter-explainer"><summary>筛选数字怎么看？</summary><p id="facet-count-note">数字随其他已选条件更新，表示保留其他条件、选择该项后的登记条数；不同选项可能重叠，数字不能相加。</p></details>
+    <div class="chips" id="chips"></div><details class="filter-explainer"><summary>筛选数字怎么看？</summary><p id="facet-count-note">数字随其他已选条件更新，按登记条数统计；结果会合并已核实的同一研究登记。不同选项可能重叠，数字不能相加。</p></details>
   </section>
   <section class="filter-panel" id="design-panel">
     <div class="panel-head"><h2>治疗线数与试验分期</h2><a class="line-help-link" id="line-help-link" href="#trial-start-help">线数怎么选？</a></div>
@@ -282,7 +282,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
 <details class="data-management" id="data-management"><summary>我的关注与备份</summary><p id="watch-status" role="status" aria-live="polite"></p><div class="watch-tools"><button id="export-watchlist">导出关注</button><button id="import-watchlist">导入关注</button><input type="file" id="watchlist-file" accept=".json,application/json" hidden><span id="catalog-download"></span></div><p>关注保存在当前浏览器；换设备前导出关注，再在新设备导入。</p></details>
 <div class="note"> 数据来自 ClinicalTrials.gov、国家药审中心药物临床试验登记平台、中国临床试验注册中心（ChiCTR）的公开登记；机制与治疗阶段标签按登记文字自动归类，可能有误，报名前以研究中心答复为准。胰腺癌证据按药物汇总，数字都有出处。客观缓解率是肿瘤明显缩小的人所占比例。疾病控制率是缩小或暂时没长大的人所占比例。中位总生存是一半人还活着的时间。中位无进展生存是一半人的肿瘤还没明显进展的时间。风险比小于 1，表示相对对照更少发生。有数字的在研药写自己的结果。对照是别的试验里一线化疗的成绩：四药 FOLFIRINOX、NALIRIFOX，以及吉西他滨加白蛋白紫杉醇。不能直接比高低。</div>
 <noscript><p class="loading-state">需要开启浏览器的 JavaScript 才能使用筛选。可点微信右上角菜单，在浏览器中打开。</p></noscript>
-<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记/采集日期"],["url","链接"]],"asOf":"2026-10-26","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":false,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/7852989df77382fc/index.js","sourceRefresh":{"summary":"2026-10-26 获取了库内 3176 项 ClinicalTrials.gov 登记的状态与更新日期，并获取发生变化的登记及新发现的胰腺癌登记。另有 1 项登记的官方接口返回 404，保留原有资料待复核。药审中心列表最近获取于 2026-10-26，ChiCTR 列表最近获取于 2026-10-26；这些日期不代表所有详情均已重新核实。药物机制和疗效证据按各条来源及数据截止日期更新；只有核实人群、方案与登记一致后才写入对应研究。登记更新和会议来源候选关联均不代表疗效证据已全量复核。","asOf":"2026-10-26"},"detailBase":"assets/7852989df77382fc/","searchSrc":"assets/7852989df77382fc/search.json","downloadSrc":"assets/7852989df77382fc/catalog.csv","evidenceSrc":"assets/7852989df77382fc/evidence.js","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","_benefit","_registryRefs","pdac_evidence"]}</script>
+<script type="application/json" id="config">{"fields":[["id","编号"],["gate_summary","关键门槛"],["china_centers","中国研究中心"],["lines","治疗线数"],["phase","临床分期"],["mechanism","机制类别"],["kras","KRAS 要求"],["status","招募状态"],["source","来源"],["contacts","登记联系人"],["drugs","药物/干预"],["center_mix","中国中心分布"],["title","题目"],["req","关键入组门槛"],["trial_kind","IIT 标识"],["china","中国有中心"],["sponsor","申办/牵头单位"],["related","同药其他登记"],["updated","更新/登记/采集日期"],["url","链接"]],"asOf":"2026-10-26","csv":"全部试验-通用版.csv","filters":["source","status","mechanism","kras","setting","phase","china"],"multi":["mechanism","setting","kras","lines"],"verdictOrder":[],"unfitLabel":"","headHospitals":["北京大学肿瘤医院","中国医学科学院肿瘤医院","北京协和医院","中国人民解放军总医院","北京大学第三医院","首都医科大学附属北京友谊医院","复旦大学附属肿瘤医院","复旦大学附属中山医院","复旦大学附属华山医院","上海交通大学医学院附属瑞金医院","上海交通大学医学院附属仁济医院","上海长海医院","中山大学肿瘤防治中心","中山大学附属第一医院","中山大学孙逸仙纪念医院","天津医科大学肿瘤医院","四川大学华西医院","浙江省肿瘤医院","浙江大学医学院附属第一医院","浙江大学医学院附属第二医院","浙江大学医学院附属邵逸夫医院","江苏省人民医院","南京大学医学院附属鼓楼医院","江苏省肿瘤医院","河北省肿瘤医院","山西省肿瘤医院","辽宁省肿瘤医院","中国医科大学附属第一医院","吉林大学第一医院","吉林省肿瘤医院","哈尔滨医科大学附属肿瘤医院","苏州大学附属第一医院","浙江省人民医院","中国科学技术大学附属第一医院","安徽省肿瘤医院","福建省肿瘤医院","福建医科大学附属协和医院","南昌大学第一附属医院","江西省肿瘤医院","山东省肿瘤医院","山东大学齐鲁医院","青岛大学附属医院","河南省肿瘤医院","郑州大学第一附属医院","华中科技大学同济医学院附属协和医院","华中科技大学同济医学院附属同济医院","湖北省肿瘤医院","湖南省肿瘤医院","中南大学湘雅医院","广东省人民医院","南方医科大学南方医院","海南省人民医院","四川省肿瘤医院","贵州医科大学附属医院","云南省肿瘤医院","西安交通大学第一附属医院","甘肃省肿瘤医院","兰州大学第一医院","青海大学附属医院","内蒙古医科大学附属医院","广西医科大学附属肿瘤医院","宁夏医科大学总医院","新疆医科大学附属肿瘤医院","重庆大学附属肿瘤医院","重庆医科大学附属第一医院"],"family":false,"hideEnglishTitle":false,"defaultRecommend":true,"nedTip":false,"familyToggle":false,"familyOnlyKeys":["reason","score","verdict"],"contactDetails":false,"showCallList":false,"dataSrc":"assets/81eb2a3a2f9f2ef8/index.js","sourceRefresh":{"summary":"2026-10-26 获取了库内 3176 项 ClinicalTrials.gov 登记的状态与更新日期，并获取发生变化的登记及新发现的胰腺癌登记。另有 1 项登记的官方接口返回 404，保留原有资料待复核。药审中心列表最近获取于 2026-10-26，ChiCTR 列表最近获取于 2026-10-26；这些日期不代表所有详情均已重新核实。药物机制和疗效证据按各条来源及数据截止日期更新；只有核实人群、方案与登记一致后才写入对应研究。登记更新和会议来源候选关联均不代表疗效证据已全量复核。","asOf":"2026-10-26"},"sameStudyGroups":[{"primary":"CTR20180867","ids":["CTR20180867","NCT03736889"]},{"primary":"CTR20220399","ids":["CTR20220399","NCT05294731"]},{"primary":"CTR20222742","ids":["CTR20222742","NCT07394374"]},{"primary":"CTR20230813","ids":["CTR20230813","NCT05579366"]},{"primary":"CTR20240210","ids":["CTR20240210","NCT05981703"]},{"primary":"CTR20240312","ids":["CTR20240312","NCT06278454"]},{"primary":"CTR20241263","ids":["CTR20241263","NCT07584954"]},{"primary":"CTR20242917","ids":["CTR20242917","NCT06427941"]},{"primary":"CTR20243370","ids":["CTR20243370","NCT06120283"]},{"primary":"CTR20244285","ids":["CTR20244285","NCT07377591"]},{"primary":"CTR20244451","ids":["CTR20244451","NCT06589596"]},{"primary":"CTR20244563","ids":["CTR20244563","NCT06596473"]},{"primary":"CTR20244676","ids":["CTR20244676","NCT06634589"]},{"primary":"CTR20244835","ids":["CTR20244835","NCT06625593"]},{"primary":"CTR20250465","ids":["CTR20250465","NCT05382559"]},{"primary":"CTR20251939","ids":["CTR20251939","NCT06803680"]},{"primary":"CTR20252978","ids":["CTR20252978","NCT07079228"]},{"primary":"CTR20253266","ids":["CTR20253266","NCT07147348"]},{"primary":"CTR20254494","ids":["CTR20254494","NCT07249892"]},{"primary":"CTR20254582","ids":["CTR20254582","NCT07310134"]},{"primary":"CTR20254793","ids":["CTR20254793","NCT07255404"]},{"primary":"CTR20260447","ids":["CTR20260447","NCT07469774"]},{"primary":"CTR20261327","ids":["CTR20261327","NCT07414836"]},{"primary":"CTR20262751","ids":["CTR20262751","NCT07811037"]}],"detailBase":"assets/81eb2a3a2f9f2ef8/","searchSrc":"assets/81eb2a3a2f9f2ef8/search.json","downloadSrc":"assets/81eb2a3a2f9f2ef8/catalog.csv","evidenceSrc":"assets/81eb2a3a2f9f2ef8/evidence.js","coreFields":["id","source","status","setting","kras","lines","phase","phase_tags","trial_kind","china","center_mix","url","updated","_benefit","_registryRefs","pdac_evidence"]}</script>
 
 
 <script type="application/json" id="data">[]</script>
@@ -362,6 +362,16 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
       }
       if(last<text.length)node.appendChild(document.createTextNode(text.slice(last)));
     }
+    function appendResultParagraphs(parent,value){
+      String(value||'').split(/\n\n+/).filter(Boolean).forEach(function(segment){
+        var paragraph=document.createElement('div');paragraph.className='ev-segment';
+        fillNums(paragraph,segment.replace(/其他研究或队列，不能当作本项方案的结果。/g,''));
+        var source=window.__trialEvidenceSourceFor?window.__trialEvidenceSourceFor(info,segment):null;
+        if(source){var note=document.createElement('span');note.className='ev-source';note.appendChild(document.createTextNode('支持这组数字：'));var link=document.createElement('a');link.href=source.url;link.target='_blank';link.rel='noopener';link.textContent=source.label;note.appendChild(link);if(source.cutoff&&segment.indexOf(source.cutoff)<0)note.appendChild(document.createTextNode(' · 数据截止 '+source.cutoff));paragraph.appendChild(note);}
+        else if(/\d+(?:\.\d+)?\s*(?:%|个月|人)/.test(segment)){var gap=document.createElement('span');gap.className='ev-source';gap.textContent='这组数字的逐项原文链接待补。';paragraph.appendChild(gap);}
+        parent.appendChild(paragraph);
+      });
+    }
     parts.forEach(function(part){
       var block=document.createElement('div');
       var kind=part.k==='方案'?' ev-plan':(part.k==='为什么可能有用'?' ev-why':(part.k==='已有数字'?' ev-got':(part.k==='常见方案效果'?' ev-ref':'')));
@@ -393,11 +403,11 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
         var context=document.createElement('details');context.className='ev-background';var title=document.createElement('summary');title.textContent=part.k;context.appendChild(title);var copy=document.createElement('div');copy.textContent=text;context.appendChild(copy);block.appendChild(context);
       }else if(part.k==='药物的其他胰腺癌研究'){
         var label=document.createElement('div');label.className='ev-k';label.textContent='同药其他胰腺癌研究（非本项方案）';block.appendChild(label);
-        var body=document.createElement('div');body.className='ev-related-body';fillNums(body,text.replace(/其他研究或队列，不能当作本项方案的结果。/g,''));block.appendChild(body);
+        var body=document.createElement('div');body.className='ev-related-body';appendResultParagraphs(body,text);block.appendChild(body);
       }else{
         if(part.k){var label=document.createElement('div');label.className='ev-k';label.textContent=part.k;block.appendChild(label);}
         var body=document.createElement('div');
-        if(part.k==='已有数字')fillNums(body, text);
+        if(part.k==='已有数字')appendResultParagraphs(body,text);
         else body.textContent=text;
         block.appendChild(body);
       }
@@ -418,6 +428,20 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   var WATCH_KEY='pancreatic-trials-watchlist-v1', watchEntries=Object.create(null), watchedOnly=false;
   var watchError='', watchNotice='', watchUnreadable=false, originalWatchText='';
   var knownRows=Object.create(null);rows.forEach(function(r,i){r._i=i;knownRows[r.id]=r;});
+  var sameStudyById=Object.create(null);
+  (cfg.sameStudyGroups||[]).forEach(function(group){
+    if(!group||!knownRows[group.primary]||!Array.isArray(group.ids))return;
+    group.ids.forEach(function(id){if(knownRows[id])sameStudyById[id]=group;});
+  });
+  function studyIds(r){var group=sameStudyById[r.id];return group?group.ids:[r.id];}
+  function collapseSameStudies(items){
+    var output=[],positions=Object.create(null);
+    items.forEach(function(r){var group=sameStudyById[r.id],key=group?group.primary:r.id;
+      if(positions[key]===undefined){positions[key]=output.length;output.push(r);}
+      else if(group&&r.id===group.primary)output[positions[key]]=r;
+    });
+    return output;
+  }
   function parseWatchlist(text){
     var doc=JSON.parse(text);
     if(!doc||doc.format!=='pancreatic-trials-watchlist'||doc.version!==1||!Array.isArray(doc.entries)||doc.entries.length>10000)
@@ -449,7 +473,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     try{localStorage.setItem(WATCH_KEY,JSON.stringify(watchDocument(watchEntries)));watchError='';}
     catch(e){watchError='本机保存失败；当前页面的关注仍保留，请导出备份。';}
   }
-  function isWatched(r){return !!watchEntries[r.id];}
+  function isWatched(r){return studyIds(r).some(function(id){return !!watchEntries[id];});}
   function watchEntry(r,addedAt){return {id:r.id,title:r.title_zh||r.title||'',url:r.url||'',source:r.source||'',addedAt:addedAt||new Date().toISOString()};}
   function watchSummary(){
     var ids=Object.keys(watchEntries), missing=ids.filter(function(id){return !knownRows[id];}).length;
@@ -733,7 +757,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
   function exportField(k){return k!=='url'&&k!=='center_mix'&&!(cfg.hideEnglishTitle&&k==='title')&&!(!showFamily&&FAMILY_KEYS[k]);}
   function showField(k){return exportField(k)&&k!=='req'&&k!=='kras';}
   cfg.fields.forEach(function(f){ if(showField(f[0])) addColumnHead(f); });
-  var q=document.getElementById('q'); q.oninput=function(){page=0;render();};
+  var q=document.getElementById('q'); q.oninput=function(){if(/^(?:NCT|CTR|ChiCTR)\d+$/i.test(q.value.trim()))cnOpen=false;page=0;render();};
   function submitSearch(){page=0;render();document.getElementById('results-wrap').scrollIntoView();}
   document.getElementById('search-submit').onclick=submitSearch;
   q.onkeydown=function(e){if(e.key==='Enter'&&!e.isComposing){e.preventDefault();submitSearch();}};
@@ -770,7 +794,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     b.setAttribute('aria-label',r.id+(selected?' 取消关注':' 添加关注'));
     b.onclick=function(){
       if(watchUnreadable){watchSummary();return;}
-      if(isWatched(r))delete watchEntries[r.id];else watchEntries[r.id]=watchEntry(r);
+      if(isWatched(r))studyIds(r).forEach(function(id){delete watchEntries[id];});else watchEntries[r.id]=watchEntry(r);
       watchNotice='';persistWatchlist();render();
       var replacement=document.querySelector('[data-watch-id="'+r.id+'"]');if(replacement)replacement.focus({preventScroll:true});
     };td.appendChild(b);return td;
@@ -793,6 +817,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     if(!detailReady(r)&&['gate_summary','contacts','drugs','title','req','mechanism','sponsor','related'].indexOf(k)>=0)return loadingCell(r,labels[k]||k);
     var td=document.createElement('td'), v=r[k]==null?'':r[k];td.dataset.label=labels[k]||k;
     if(k==='id'){td.className='id';var a=document.createElement('a');a.href=r.url;a.target='_blank';a.rel='noopener';a.textContent=v;td.appendChild(a);
+      var group=sameStudyById[r.id];if(group){var aliases=document.createElement('div');aliases.className='same-study-links';aliases.appendChild(document.createTextNode('同一研究另见 '));group.ids.filter(function(id){return id!==r.id&&knownRows[id];}).forEach(function(id){var other=knownRows[id],link=document.createElement('a');link.href=other.url;link.target='_blank';link.rel='noopener';link.textContent=id+'（'+other.status+'）';aliases.appendChild(link);});td.appendChild(aliases);}
       var quick=document.createElement('details');quick.className='quick-contact';var summary=document.createElement('summary');summary.textContent='医院与联系';quick.appendChild(summary);
       ['china_centers','contacts'].forEach(function(key){var box=document.createElement('div');box.className='contact-content';var content=cell(r,key);while(content.firstChild)box.appendChild(content.firstChild);quick.appendChild(box);});
       var tip=document.createElement('p');tip.className='sub';tip.textContent=cfg.family?'报编号询问是否接收胰腺癌、当前名额及入组条件。':'通用版仅列联系人姓名；电话、邮箱请点编号查看官方登记。';quick.appendChild(tip);td.appendChild(quick);}
@@ -825,6 +850,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
       if(shown)td.title=shown;
       else td.title=showDetails?'公开登记未提供电话/邮箱，或本地尚未抓到详情；可点编号打开登记页':'通用版只显示姓名；电话/邮箱仅家庭版可见，可点编号打开登记页';
     }
+    else if(k==='related'&&sameStudyById[r.id]){var ids=studyIds(r);td.textContent=String(v||'').split('、').filter(function(id){return ids.indexOf(id)<0;}).join('、');}
     else if(k==='drugs'){var shown=window.__trialDrugDisplayList?window.__trialDrugDisplayList(v):String(v);td.textContent=shown.length>80?shown.slice(0,80)+'…':shown;td.title=String(v);}
     else if(k==='updated'&&v){td.className='source-date';td.textContent=(r.source==='药审中心'?'列表采集：':r.source==='ChiCTR'?'首次登记：':r.source==='ClinicalTrials.gov'?'登记更新：':'')+v;td.title=r.source==='药审中心'?'本站获取药审中心列表的日期，不代表这条登记当日发生变化。':r.source==='ChiCTR'?'ChiCTR 的首次登记日期，不代表最近一次更新。':'登记平台标注的最近更新日期，不代表疗效数据更新时间。';}
     else if(k==='score'){td.className='score';td.textContent=v!==''?Number(v).toFixed(2):'';td.title='匹配分是初筛相关度（0–1），越高越值得优先看；不是入组把握，0 也不等于不能问中心。';}
@@ -879,7 +905,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     if(callOnly&&cfg.showCallList&&!(cfg.familyToggle&&!showFamily))predicate('callOnly',function(r){return !!r.call_ready;});
     if(watchedOnly)predicate('watchedOnly',isWatched);
     if(cnOpen)predicate('cnOpen',function(r){return r.china==='是'&&(r.status==='招募中'||r.status==='尚未招募');});
-    if(term)predicate('search',function(r){if(cfg.searchSrc){if(/^(?:NCT|CTR|ChiCTR)\d+$/i.test(term))return (r._registryRefs||[]).some(function(ref){return ref.indexOf(term)>=0;});return r._search.indexOf(term)>=0;}var info=window.__drugEvidenceFor?window.__drugEvidenceFor(r):{text:''};return (info.text||'').toLowerCase().indexOf(term)>=0||cfg.fields.some(function(f){return String(r[f[0]]==null?'':r[f[0]]).toLowerCase().indexOf(term)>=0;});});
+    if(term)predicate('search',function(r){if(/^(?:NCT|CTR|ChiCTR)\d+$/i.test(term))return studyIds(r).some(function(id){return id.toLowerCase()===term;});if(cfg.searchSrc)return r._search.indexOf(term)>=0;var info=window.__drugEvidenceFor?window.__drugEvidenceFor(r):{text:''};return (info.text||'').toLowerCase().indexOf(term)>=0||cfg.fields.some(function(f){return String(r[f[0]]==null?'':r[f[0]]).toLowerCase().indexOf(term)>=0;});});
     rows.forEach(function(r,index){
       var failed=null,failures=0;
       for(var i=0;i<tests.length;i++){if(!tests[i].test(r,index)){failed=tests[i].group;if(++failures===2)break;}}
@@ -924,7 +950,8 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     PAGE=window.matchMedia('(max-width:700px)').matches?20:100;
     var term=q.value.trim().toLowerCase();
     if(cfg.searchSrc&&!searchReady&&((term&&!/^(?:NCT|CTR|ChiCTR)\d+$/i.test(term))||(cfg.coreFields.indexOf(sortKey)<0&&sortKey))){count.textContent='正在检索全库资料…';document.getElementById('body').textContent='';loadSearch().then(render).catch(function(error){count.textContent=error.message;var retry=document.createElement('button');retry.textContent='重试搜索';retry.onclick=render;document.getElementById('body').appendChild(retry);});return;}
-    var out=filterAndCount(term);
+    var out=filterAndCount(term),registrationCount=out.length;
+    out=collapseSameStudies(out);
     if(sortKey)out=out.slice().sort(cmp);
     Array.prototype.forEach.call(head.children,function(th){
       if(th===watchHead)return;th.className=th.dataset.k===sortKey?('sorted'+(asc?' asc':'')):'';});
@@ -965,7 +992,7 @@ header{padding-top:24px;padding-bottom:12px}h1{letter-spacing:-.4px}.standalone-
     renderActiveFilters();
     document.getElementById('prev').disabled=page===0;document.getElementById('next').disabled=page>=pages-1;
     watchBtn.classList.toggle('on',watchedOnly);watchBtn.setAttribute('aria-pressed',String(watchedOnly));watchSummary();
-    count.textContent='筛出 '+out.length+' 条 · 共 '+rows.length+' 条';
+    count.textContent=registrationCount===out.length?'筛出 '+out.length+' 条登记 · 共 '+rows.length+' 条':'筛出 '+out.length+' 项研究（'+registrationCount+' 条登记）· 全库 '+rows.length+' 条登记';
     cnBtn.classList.toggle('on',cnOpen);pancBtn.classList.toggle('on',pancOnly);if(callBtn){callBtn.classList.toggle('on',callOnly);callBtn.hidden=!!(cfg.familyToggle&&!showFamily);if(cfg.familyToggle&&!showFamily)callOnly=false;}hospViewBtn.classList.toggle('on',hospitalView);recBtn.classList.toggle('on',cnOpen&&(!cfg.unfitLabel||hideUnfit)&&!callOnly&&!hospitalView);if(unfitBtn)unfitBtn.classList.toggle('on',hideUnfit);var famEl=document.getElementById('family-toggle');if(famEl){famEl.classList.toggle('on',showFamily);famEl.textContent=showFamily?'显示对父亲判定：开':'显示对父亲判定：关';if(unfitBtn)unfitBtn.hidden=!showFamily;}
     Array.prototype.forEach.call(centerPanel.querySelectorAll('button'),function(b){var selected=centerFilter===b.dataset.centerFilter;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected));});
     Array.prototype.forEach.call(designPanel.querySelectorAll('button'),function(b){var selected=(designFilters[b.dataset.designKey]||'')===b.dataset.designValue;b.classList.toggle('on',selected);b.setAttribute('aria-pressed',String(selected));});
@@ -1041,5 +1068,5 @@ var early=window.__trialEarlySelection||{};
   box.appendChild(status);
   window.__trialEarlyReady = performance.now();
 })();
-</script><script async src="assets/7852989df77382fc/index.js" id="data-src" onload="window.__startTrialCatalog()"></script><footer class="note" aria-label="网站备案信息" style="text-align:center;padding-top:12px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">沪ICP备2026056179号-1</a></footer></body>
+</script><script async src="assets/81eb2a3a2f9f2ef8/index.js" id="data-src" onload="window.__startTrialCatalog()"></script><footer class="note" aria-label="网站备案信息" style="text-align:center;padding-top:12px"><a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">沪ICP备2026056179号-1</a></footer></body>
 </html>
